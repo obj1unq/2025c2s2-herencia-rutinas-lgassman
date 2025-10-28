@@ -3,10 +3,10 @@ import gimnasia.*
 describe "rutinas" {
 
 //Punto 1: rutinas
-	const correrEnLaPlaya = new Running(intensidad=1.2)
-	const remarEnElDelta = new Remo()
-	// const remarEnCaminoRemeros = new RemoCompetitivo()
-	const maratonBA = new Maraton(intensidad=1.5)
+	const correrEnLaPlaya = new Rutina(actividad=new Running(intensidad=1.2))
+	const remarEnElDelta = new Rutina (actividad=remo)
+	const remarEnCaminoRemeros = new Rutina(actividad=remoCompeticion)
+	const maratonBA = new Rutina(actividad = new Maraton(intensidad=1.5))
 
 //Punto 2: personas
 	//const calamardo = //Una persona Sedentaria con peso 60 y tiempo de ejercicio 5
@@ -34,10 +34,10 @@ describe "rutinas" {
 		assert.equals(9360, remarEnElDelta.calorias(90))
 	}
 
-//	test "1.4 consulta remo competitivo" {
-//		//remarEnCaminoRemeros deberia gastar 510 calorias al practicarse por 5 minutos
-//		//remarEnCaminoRemeros deberia gastar 12750 calorias al practicarse por 90 minutos
-//	}
+	test "1.4 consulta remo competitivo" {
+		assert.equals(510, remarEnCaminoRemeros.calorias(5))
+		assert.equals(12750, remarEnCaminoRemeros.calorias(90))
+	}
 
 //Punto 2: Personas
 	//ATENCION: usar el metodo truncate(3) para truncar un numero a 3 decimales
