@@ -18,7 +18,7 @@ class Actividad {
 }
 
 class Running inherits Actividad {
-    var property intensidad
+    const property intensidad
 
     override method descanso(tiempo) {
         return if (tiempo > 20) 5 else 2
