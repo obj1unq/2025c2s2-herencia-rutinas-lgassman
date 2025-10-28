@@ -5,7 +5,7 @@ describe "rutinas" {
 //Punto 1: rutinas
 	const correrEnLaPlaya = new Running(intensidad=1.2)
 	const remarEnElDelta = new Remo()
-	// const remarEnCaminoRemeros = new RemoCompetitivo()
+	const remarEnCaminoRemeros = new RemoCompeticion()
 	const maratonBA = new Maraton(intensidad=1.5)
 
 //Punto 2: personas
@@ -33,12 +33,10 @@ describe "rutinas" {
 		assert.equals(520, remarEnElDelta.calorias(5))
 		assert.equals(9360, remarEnElDelta.calorias(90))
 	}
-
-//	test "1.4 consulta remo competitivo" {
-//		//remarEnCaminoRemeros deberia gastar 510 calorias al practicarse por 5 minutos
-//		//remarEnCaminoRemeros deberia gastar 12750 calorias al practicarse por 90 minutos
-//	}
-
+	test "1.4 consulta remo competitivo" {
+		assert.equals(510, remarEnCaminoRemeros.calorias(5))
+		assert.equals(12750, remarEnCaminoRemeros.calorias(90))
+	}
 //Punto 2: Personas
 	//ATENCION: usar el metodo truncate(3) para truncar un numero a 3 decimales
 	// Ej: 1.2345.truncate(3) -> devuelve 1.234 
