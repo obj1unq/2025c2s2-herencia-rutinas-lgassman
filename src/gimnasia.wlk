@@ -7,7 +7,7 @@ class Rutina {
 }
 
 class Running inherits Rutina {
-
+    const property intensidad
     override method descanso(tiempo) {
         return if (tiempo > 20) 5 else 2
     }
