@@ -105,12 +105,6 @@ class Atleta inherits Persona {
 class Predio {
     const property rutinas
 
-    method calorias(persona) {
-        return rutinas.sum({rutina => persona.calorias(rutina)})
-    }
-    method esTranqui(persona) {
-        return rutinas.any({rutina => persona.calorias(rutina) < 500})
-    }
     method rutinaMasExigente(persona) {
         return rutinas.max({rutina => persona.calorias(rutina)})
     }
@@ -119,12 +113,21 @@ class Club {
     const property predios
 
     method mejorPredio(persona) {
-        return predios.max({predio => predio.calorias(persona)})
+        //muy mala delegacion: lo correcto es enviar la pregiunta al predio que tiene su propia coleccion para que labura
+        return predios.max({predio => predio.rutinas().sum({rutina => persona.calorias(rutina)})})
     }
     method prediosTranquis(persona) {
-        return predios.filter({predio => predio.esTranqui(persona)})
+        //mejora un poco el codigo pasando por una subtarea pero sigue etando mal la delegacion: lo correcto es enviar la pregiunta al predio que tiene su propia coleccion
+        return predios.filter({predio => self.esTranqui(predio, persona)})
     }
+    method esTranqui(predio, persona) {
+       return predio.rutinas().any({rutina => persona.calorias(rutina) < 500})
+    }
+
     method rutinasMasExigentes(persona) {
-        return predios.map({predio => predio.rutinaMasExigente(persona)}).asSet()
+        //Acá la delegacion está bien, pero el problema es usar un forEach para algo que resuelve una consulta. Debe usar un map
+        const exigentes = #{}
+        predios.forEach({predio => exigentes.add(predio.rutinaMasExigente(persona))})
+        return exigentes
     }
 }
