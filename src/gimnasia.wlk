@@ -36,3 +36,68 @@ class RemoCompeticion inherits Remo {
         return (super(tiempo) - 3).max(2)
     }
 }
+
+class Persona {
+    
+    var property peso
+
+    method practicar(rutina) {
+        self.validarPracticar(rutina)
+        peso = peso - self.kilosQueBaja(rutina)
+    }
+
+    method validarPracticar(rutina) {
+        if (not self.puedePracticar(rutina)) {
+            self.error("No se puede practicar " + rutina)
+        }
+    }
+
+
+    method kilosQueBaja(rutina) {
+        // Aca hice un method calorias en lugar de llamar directamente a rutina.calorias(self.tiempo()) 
+        // porque esa porcion de codigo la necesito reutilizar 
+        return self.calorias(rutina) / self.kilosPorCaloria()
+    }
+
+    method calorias(rutina) {
+        return rutina.calorias(self.tiempo())
+    }
+
+    method puedePracticar(rutina) 
+    method tiempo()
+    method kilosPorCaloria()
+
+}
+
+class Sedentaria inherits Persona {
+
+    const property tiempo
+
+    override method puedePracticar(rutina) {
+        return self.peso() > 50
+    }
+
+    override method kilosPorCaloria() {
+        return 7000
+    }
+
+}
+class Atleta inherits Persona {
+
+    override method kilosQueBaja(rutina) {
+        return super(rutina) - 1
+    }
+
+    override method tiempo() {
+        return 90
+    }
+
+    override method puedePracticar(rutina) {
+        return self.calorias(rutina) > 10000
+    }
+
+    override method kilosPorCaloria() {
+        return 8000
+    }
+
+}
